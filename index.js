@@ -4,6 +4,7 @@ import readline from 'node:readline/promises';
 import { ToolNode } from '@langchain/langgraph/prebuilt';
 import { TavilySearch } from '@langchain/tavily';
 import { MemorySaver } from '@langchain/langgraph';
+import 'dotenv/config';
 
 const checkpointer = new MemorySaver();
 
