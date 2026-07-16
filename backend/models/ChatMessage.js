@@ -15,7 +15,7 @@ const ChatMessage = sequelize.define(
             allowNull: false,
         },
         role: {
-            type: DataTypes.STRING, // "user" or "assistant"
+            type: DataTypes.STRING, 
             allowNull: false,
         },
         content: {

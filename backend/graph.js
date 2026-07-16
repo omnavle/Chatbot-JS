@@ -11,32 +11,13 @@ const checkpointer = new MemorySaver();
 const tool = new TavilySearch({
     maxResults: 3,
     topic: 'general',
-    // includeAnswer: false,
-    // includeRawContent: false,
-    // includeImages: false,
-    // includeImageDescriptions: false,
-    // searchDepth: "basic",
-    // timeRange: "day",
-    // includeDomains: [],
-    // excludeDomains: [],
 });
 
-/**
- * Initialise the tool node
- */
 
 const tools = [tool];
 const toolNode = new ToolNode(tools);
 
-/**
- * 1. Define node function
- * 2. Build the graph
- * 3. Compile and invoke the graph
- */
 
-/**
- * Initialise the LLM
- */
 const llm = new ChatGroq({
     model: "llama-3.3-70b-versatile",
     temperature: 0,
@@ -59,9 +40,6 @@ function shouldContinue(state) {
     return '__end__';
 }
 
-/**
- * Build the graph
- */
 
 const workflow = new StateGraph(MessagesAnnotation)
     .addNode('agent', callModel)
@@ -70,9 +48,6 @@ const workflow = new StateGraph(MessagesAnnotation)
     .addEdge('tools', 'agent')
     .addConditionalEdges('agent', shouldContinue);
 
-/**
- * Compile the graph
- */
 
 const app = workflow.compile({ checkpointer });
 
