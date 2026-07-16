@@ -12,7 +12,6 @@ const server = express();
 server.use(cors());
 server.use(express.json());
 
-// ---------- GET all sessions ----------
 server.get("/sessions", async (req, res) => {
     try {
         const sessions = await ChatSession.findAll({ order: [["created_at", "DESC"]] });
@@ -22,7 +21,6 @@ server.get("/sessions", async (req, res) => {
     }
 });
 
-// ---------- CREATE a new empty session ----------
 server.post("/sessions", async (req, res) => {
     try {
         const session = await ChatSession.create({ title: "New Chat" });
@@ -32,7 +30,6 @@ server.post("/sessions", async (req, res) => {
     }
 });
 
-// ---------- RENAME a session ----------
 server.patch("/sessions/:id", async (req, res) => {
     try {
         const { id } = req.params;
@@ -54,7 +51,6 @@ server.patch("/sessions/:id", async (req, res) => {
     }
 });
 
-// ---------- GET all messages of a session ----------
 server.get("/sessions/:id/messages", async (req, res) => {
     try {
         const { id } = req.params;
@@ -73,7 +69,6 @@ server.get("/sessions/:id/messages", async (req, res) => {
     }
 });
 
-// ---------- EDIT a message + regenerate everything after it ----------
 server.put("/sessions/:sessionId/messages/:messageId", async (req, res) => {
     try {
         const { sessionId, messageId } = req.params;
@@ -94,11 +89,9 @@ server.put("/sessions/:sessionId/messages/:messageId", async (req, res) => {
             return res.status(404).json({ error: "Editable message not found" });
         }
 
-        // update the edited message itself
         message.content = content;
         await message.save();
 
-        // remove every message that came after it (old bot reply, later turns)
         await ChatMessage.destroy({
             where: {
                 session_id: sessionId,
@@ -106,7 +99,6 @@ server.put("/sessions/:sessionId/messages/:messageId", async (req, res) => {
             },
         });
 
-        // rebuild conversation history up to and including the edited message
         const history = await ChatMessage.findAll({
             where: { session_id: sessionId },
             order: [["id", "ASC"]],
@@ -138,7 +130,6 @@ server.put("/sessions/:sessionId/messages/:messageId", async (req, res) => {
     }
 });
 
-// ---------- DELETE a session ----------
 server.delete("/sessions/:id", async (req, res) => {
     try {
         const { id } = req.params;
@@ -153,7 +144,6 @@ server.delete("/sessions/:id", async (req, res) => {
     }
 });
 
-// ---------- MAIN CHAT ROUTE ----------
 server.post("/chat", async (req, res) => {
     try {
         const { message, session_id } = req.body;
@@ -206,7 +196,6 @@ server.post("/chat", async (req, res) => {
     }
 });
 
-// ---------- START SERVER ----------
 const PORT = process.env.PORT || 5000;
 
 async function start() {

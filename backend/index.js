@@ -25,14 +25,12 @@ const llm = new ChatGroq({
 }).bindTools(tools);
 
 async function callModel(state) {
-    // call the LLM using APIs
     console.log('Calling LLM....');
     const response = await llm.invoke(state.messages);
     return { messages: [response] };
 }
 
 function shouldContinue(state) {
-    // whether to call a tool or end
     const lastMessage = state.messages[state.messages.length - 1];
     if (lastMessage.tool_calls.length > 0) {
         return 'tools';
