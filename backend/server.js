@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import "dotenv/config";
 import { Op } from "sequelize";
-import { app as graphApp } from "./graph.js";
+import { app as graphApp } from "./index.js";
 import { sequelize, connectDB } from "./db.js";
 import ChatSession from "./models/ChatSession.js";
 import ChatMessage from "./models/ChatMessage.js";
