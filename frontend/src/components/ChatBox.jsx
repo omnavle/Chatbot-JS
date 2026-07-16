@@ -293,7 +293,7 @@ function ChatBox() {
             <aside className={`sidebar${sidebarOpen ? " open" : ""}`}>
                 <div className="brand">
                     <span className="brand-mark"><IconSpark /></span>
-                    <span className="brand-name">Relay</span>
+                    <span className="brand-name">ChatAI</span>
                 </div>
 
                 <button className="newChatBtn" onClick={startNewChat}>
@@ -370,9 +370,9 @@ function ChatBox() {
 
                     <div className="headerTitle">
                         <span className="statusDot" />
-                        Relay Agent
+                        ChatAI
                     </div>
-                    <span className="headerSub">gpt-oss-120b · web search enabled</span>
+                    
                 </header>
 
                 <div className="chat">
@@ -380,7 +380,7 @@ function ChatBox() {
                         <div className="emptyState">
                             <div className="emptyIcon"><IconSpark /></div>
                             <h2>What can I help you find?</h2>
-                            <p>Ask a question, and Relay will search the web when it needs to.</p>
+                            <p>Ask a question, and ChatAI will search the web when it needs to.</p>
                             <div className="suggestions">
                                 {SUGGESTIONS.map((s) => (
                                     <button key={s} className="suggestionChip" onClick={() => setQuestion(s)}>
@@ -463,7 +463,7 @@ function ChatBox() {
                     <textarea
                         ref={textareaRef}
                         value={question}
-                        placeholder="Message Relay..."
+                        placeholder="Message ChatAI..."
                         rows={1}
                         onChange={(e) => {
                             setQuestion(e.target.value);
